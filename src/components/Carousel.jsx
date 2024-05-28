@@ -20,7 +20,7 @@ function Carousel() {
           {data.map((d) => (
             <div
               key={d.name}
-              className="bg-slate-400 h-[450px] text-[#1d3673] rounded-xl border border-[#1d3673]"
+              className="bg-slate-400 h-[450px] text-[#121e3e] rounded-xl border border-[#1d3673]"
             >
               <div className="h-56 flex justify-center items-center rounded-t-xl ">
                 <img src={d.img} alt="" className="h-44 w-44 rounded-full" />
@@ -29,7 +29,7 @@ function Carousel() {
               <div className="flex flex-col items-center justify-center gap-4 p-4">
                 <p className="text-xl font-semibold">{d.name}</p>
                 <p className="text-center">{d.review}</p>
-                <button className="bg-[#1d3673] text-white text-lg px-6 py-1 rounded-xl">
+                <button className="bg-[#121e3e] text-white text-lg px-6 py-1 rounded-xl">
                   Read More
                 </button>
               </div>

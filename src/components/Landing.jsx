@@ -1,14 +1,27 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FeatureCard from "./FeatureCard.jsx";
 import { Book, SearchIcon, Star } from "lucide-react";
 import Carousel from "./Carousel.jsx";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../auth/firebase.js";
 
 function Landing() {
   const navigate = useNavigate();
+
+  const handleGoogleSignIn = async (e) => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+      return navigate("/main");
+    } catch (error) {
+      console.log(e);
+    }
+  };
   return (
     <div className="items-center justify-center p-10 mt-10 flex flex-col gap-7">
-      <h1 className="text-5xl font-bold w-full text-[#1d3673]">
+      <h1 className="text-5xl font-bold w-full text-[#121e3e]">
         Welcome to Our <br />
         Bookstore
       </h1>
@@ -19,14 +32,14 @@ function Landing() {
       </div>
       <div>
         <button
-          onClick={() => navigate("/signin")}
-          className="bg-[#1d3673] px-7 py-2 text-white rounded-lg"
+          onClick={handleGoogleSignIn}
+          className="bg-[#121e3e] px-7 py-2 text-white rounded-lg"
         >
           Sign In
         </button>
       </div>
       <div className="mt-24">
-        <h1 className="text-4xl font-bold text-[#1d3673]">
+        <h1 className="text-4xl font-bold text-[#121e3e]">
           Features of Our Bookstore
         </h1>
         <p className="text-gray-500 font-normal mt-7">
@@ -52,7 +65,7 @@ function Landing() {
         </div>
       </div>
 
-      <h1 className="text-4xl font-bold text-[#1d3673] mt-20">
+      <h1 className="text-4xl font-bold text-[#121e3e] mt-20">
         What Our Customers Say
       </h1>
       <p className="text-gray-500 font-normal">
@@ -61,7 +74,7 @@ function Landing() {
       <Carousel />
 
       <div className="mt-24">
-        <h1 className="text-4xl font-bold text-[#1d3673]">Featured Books</h1>
+        <h1 className="text-4xl font-bold text-[#121e3e]">Featured Books</h1>
         <p className="text-gray-500 font-normal">
           Discover our latest and greatest book selections.
         </p>
