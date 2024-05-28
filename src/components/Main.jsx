@@ -4,8 +4,17 @@ import { Link } from "react-router-dom";
 import PopularAuthor from "./PopularAuthor";
 import PopularBooks from "./PopularBooks";
 import RecommendedBooks from "./RecommendedBooks";
+import { UserAuth } from "../context/AuthProvider";
 
 function Main() {
+  const { googleSignOut } = UserAuth();
+  const handleUserSignOut = async () => {
+    try {
+      await googleSignOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-gray-950 text-gray-50 px-4 md:px-6 py-3 flex items-center justify-between">
@@ -13,6 +22,12 @@ function Main() {
           <BookIcon className="h-6 w-6" />
           <span className="text-lg font-medium">Bookstore</span>
         </Link>
+        <button
+          onClick={handleUserSignOut}
+          className="bg-[#121e3e] px-7 py-2 text-white rounded-lg"
+        >
+          Sign Out
+        </button>
         <div className="flex items-center gap-4">
           <form className="relative">
             <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -72,7 +87,9 @@ function Main() {
         <main className="p-6 space-y-8">
           <section>
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-[#121e3e]">Popular Authors</h2>
+              <h2 className="text-2xl font-bold text-[#121e3e]">
+                Popular Authors
+              </h2>
               <Link
                 className="text-sm font-medium text-gray-500 hover:text-gray-900"
                 href="#"
@@ -91,7 +108,9 @@ function Main() {
           </section>
           <section>
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-[#121e3e]">Popular Books</h2>
+              <h2 className="text-2xl font-bold text-[#121e3e]">
+                Popular Books
+              </h2>
               <Link
                 className="text-sm font-medium text-gray-500 hover:text-gray-900"
                 href="#"
@@ -108,7 +127,9 @@ function Main() {
           </section>
           <section>
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-[#121e3e]">Recommended Books</h2>
+              <h2 className="text-2xl font-bold text-[#121e3e]">
+                Recommended Books
+              </h2>
               <Link
                 className="text-sm font-medium text-gray-500 hover:text-gray-900"
                 href="#"

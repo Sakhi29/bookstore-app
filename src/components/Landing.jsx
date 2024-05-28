@@ -3,22 +3,25 @@ import { useNavigate } from "react-router-dom";
 import FeatureCard from "./FeatureCard.jsx";
 import { Book, SearchIcon, Star } from "lucide-react";
 import Carousel from "./Carousel.jsx";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../auth/firebase.js";
+import { UserAuth } from "../context/AuthProvider";
 
-function Landing() {
+const Landing = () => {
   const navigate = useNavigate();
+  const { googleSignIn, user } = UserAuth();
 
-  const handleGoogleSignIn = async (e) => {
-    const provider = new GoogleAuthProvider();
+  const handleGoogleSignIn = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      console.log(result);
-      return navigate("/main");
+      await googleSignIn();
     } catch (error) {
-      console.log(e);
+      console.log(error);
     }
   };
+  useEffect(() => {
+    if (user != null) {
+      return navigate("/main");
+    }
+  }, [user]);
+
   return (
     <div className="items-center justify-center p-10 mt-10 flex flex-col gap-7">
       <h1 className="text-5xl font-bold w-full text-[#121e3e]">
@@ -81,6 +84,6 @@ function Landing() {
       </div>
     </div>
   );
-}
+};
 
 export default Landing;
