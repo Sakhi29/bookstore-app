@@ -1,7 +1,17 @@
 import { HeartIcon, ShoppingCartIcon, StarIcon } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function PopularBooks() {
+  const [popularBooks, setPopularBooks] = useState([]);
+
+  useEffect(() => {
+    const fetchPopularBooks = async () => {
+      const response = await axios.get("/api/popular-books");
+      setPopularBooks(response.data);
+    };
+    fetchPopularBooks();
+  }, []);
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md">
       <img
