@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import FeatureCard from "./FeatureCard.jsx";
 import { Book, SearchIcon, Star } from "lucide-react";
 import Carousel from "./Carousel.jsx";
-import { UserAuth } from "../context/AuthProvider";
+import { UserAuth } from "../context/AuthProvider.jsx";
 
 const Landing = () => {
   const navigate = useNavigate();
