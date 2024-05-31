@@ -1,10 +1,11 @@
 import { BookIcon, HomeIcon, SearchIcon, SettingsIcon } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
-import PopularAuthor from "./PopularAuthor";
+import FreeEbooks from "./FreeEbooks";
 import PopularBooks from "./PopularBooks";
-import RecommendedBooks from "./RecommendedBooks";
+import PaidEBooks from "./PaidEBooks";
 import { UserAuth } from "../context/AuthProvider";
+import Dropdown from "./DropDown";
 
 function Main() {
   const { googleSignOut } = UserAuth();
@@ -22,12 +23,6 @@ function Main() {
           <BookIcon className="h-6 w-6" />
           <span className="text-lg font-medium">Bookstore</span>
         </Link>
-        <button
-          onClick={handleUserSignOut}
-          className="bg-[#121e3e] px-7 py-2 text-white rounded-lg"
-        >
-          Sign Out
-        </button>
         <div className="flex items-center gap-4">
           <form className="relative">
             <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -51,6 +46,15 @@ function Main() {
               <DropdownMenuItem>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu> */}
+
+          <Dropdown />
+
+          <button
+            onClick={handleUserSignOut}
+            className="bg-[#121e3e] px-7 py-2 text-white rounded-lg"
+          >
+            Sign Out
+          </button>
         </div>
       </header>
       <div className="flex-1 grid grid-cols-[200px_1fr] bg-gray-100">
@@ -87,9 +91,7 @@ function Main() {
         <main className="p-6 space-y-8">
           <section>
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-[#121e3e]">
-                Popular Authors
-              </h2>
+              <h2 className="text-2xl font-bold text-[#121e3e]">Free Ebooks</h2>
               <Link
                 className="text-sm font-medium text-gray-500 hover:text-gray-900"
                 href="#"
@@ -98,12 +100,7 @@ function Main() {
               </Link>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4">
-              <PopularAuthor />
-              <PopularAuthor />
-              <PopularAuthor />
-              <PopularAuthor />
-              <PopularAuthor />
-              <PopularAuthor />
+              <FreeEbooks />
             </div>
           </section>
           <section>
@@ -120,16 +117,11 @@ function Main() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
               <PopularBooks />
-              <PopularBooks />
-              <PopularBooks />
-              <PopularBooks />
             </div>
           </section>
           <section>
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-[#121e3e]">
-                Recommended Books
-              </h2>
+              <h2 className="text-2xl font-bold text-[#121e3e]">Paid EBooks</h2>
               <Link
                 className="text-sm font-medium text-gray-500 hover:text-gray-900"
                 href="#"
@@ -138,7 +130,7 @@ function Main() {
               </Link>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-              <RecommendedBooks />
+              <PaidEBooks />
             </div>
           </section>
         </main>
