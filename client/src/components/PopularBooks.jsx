@@ -1,9 +1,11 @@
 import { HeartIcon, ShoppingCartIcon, StarIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { UserAuth } from "../context/AuthProvider";
 
 function PopularBooks() {
   const [popularBooks, setPopularBooks] = useState([]);
+  const { user } = UserAuth();
 
   useEffect(() => {
     const fetchPopularBooks = async () => {
@@ -48,14 +50,48 @@ function PopularBooks() {
                 </span>
               </div>
               <div className="flex items-center gap-2 mt-2">
-                <button size="sm" variant="outline">
+                <button
+                  onClick={async () => {
+                    if (user && user.tokenId) {
+                      const wishlistItem = {
+                        title: item.volumeInfo.title,
+                        authors: item.volumeInfo.authors,
+                        description: item.volumeInfo.description,
+                        thumbnail: item.volumeInfo.imageLinks.smallThumbnail,
+                        amount: item.saleInfo.listPrice?.amount || "Free",
+                      };
+                      try {
+                        const data = await axios.post(
+                          "http://localhost:3000/api/wishlist",
+                          wishlistItem,
+                          {
+                            headers: {
+                              Authorization: `Bearer ${user.tokenId}`,
+                              "Content-Type": "application/json",
+                            },
+                          }
+                        );
+                        console.log(data.body);
+                        if (data.status === 200) {
+                          console.log("Wishlist item added");
+                        } else {
+                          console.log("Error while adding item");
+                        }
+                      } catch (error) {
+                        console.log(error);
+                      }
+                    }
+                  }}
+                  size="sm"
+                  variant="outline"
+                >
                   <HeartIcon className="h-4 w-4" />
                   <span className="sr-only">Add to favorites</span>
                 </button>
-                <button size="sm" variant="solid">
+                {/* <button size="sm" variant="solid">
                   <ShoppingCartIcon className="h-4 w-4 mr-2" />
                   Add to cart
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
+  getIdToken,
 } from "firebase/auth";
 import { auth } from "../auth/firebase.js";
 
@@ -20,8 +21,13 @@ export const AuthContextProvider = ({ children }) => {
     signOut(auth);
   };
   useEffect(() => {
-    const unsubsrcibe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubsrcibe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        const tokenId = await getIdToken(currentUser);
+        console.log("userid", tokenId);
+        setUser({ ...currentUser, tokenId });
+      } else setUser(null);
+
       console.log("user", currentUser);
     });
     return () => {

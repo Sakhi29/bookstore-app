@@ -5,6 +5,7 @@ import SignIn from "./components/SignIn";
 import Main from "./components/Main";
 import { AuthContextProvider } from "./context/AuthProvider";
 import Protected from "./context/Protected";
+import Wishlist from "./components/Wishlist";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               </Protected>
             }
           />
+          <Route path="/wishlist" element={<Wishlist />} />
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>
